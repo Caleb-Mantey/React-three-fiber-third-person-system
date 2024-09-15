@@ -6,7 +6,7 @@ import CharacterController from "./player/CharacterController";
 function GameObjects() {
   return (
     <>
-      <Physics debug>
+      <Physics>
         <CharacterController/>
 
         {/* <Barn position={[3,0,3]}/> */}

@@ -20,7 +20,7 @@ function Scene() {
     <>
       <KeyboardControls map={keyboardMap}>
         <Suspense fallback={null}>
-          <CameraSystem />
+          {/* <CameraSystem /> */}
           <GameObjects/>
           <Environment preset="city" />
           <Sky

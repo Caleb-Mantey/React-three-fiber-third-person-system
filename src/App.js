@@ -20,9 +20,11 @@ function App() {
   };
 
   return (
-    <Canvas id="threejs_canvas">
-      <Scene />
-    </Canvas>
+   
+      <Canvas id="threejs_canvas" style={{ width: "100vw", height: "100vh" }}>
+        <Scene />
+      </Canvas>
+   
   );
 }
 
