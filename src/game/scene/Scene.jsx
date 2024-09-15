@@ -4,6 +4,7 @@ import CameraSystem from "../components/CameraSystem";
 import { Environment, KeyboardControls, Plane, Sky } from "@react-three/drei";
 import { Barn } from "../components/player/Barn";
 import GameObjects from "../components/GameObjects";
+import PostProcessing from "../components/PostProcessing";
 // import { Model } from '../components/models/Militant'
 
 function Scene() {
@@ -29,6 +30,8 @@ function Scene() {
             inclination={0}
             azimuth={0.25}
           />
+
+          <PostProcessing/>
         </Suspense>
       </KeyboardControls>
     </>

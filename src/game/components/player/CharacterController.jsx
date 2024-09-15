@@ -26,17 +26,18 @@ function CharacterController() {
       camDir.y = 0; // We don't want to move up/down based on camera tilt
       camDir.normalize();
 
-      const cameraPivot = scene.getObjectByName("CameraPivot")
-      cameraPivot.getWorldDirection( cameraDirection ).multiplyScalar(-2).normalize();
-      const targetQuaternion = new Quaternion().setFromUnitVectors(
-        new Vector3(0, 0, 1),
-        cameraDirection
-      );
+      if(get().forward || get().backward || get().left || get().right){
+          const cameraPivot = scene.getObjectByName("CameraPivot")
+          cameraPivot.getWorldDirection( cameraDirection ).multiplyScalar(-2).normalize();
+          const targetQuaternion = new Quaternion().setFromUnitVectors(
+            new Vector3(0, 0, 1),
+            cameraDirection
+          );
 
-      targetQuaternion.x = 0;
-      targetQuaternion.z = 0;
-      rb.current.setRotation(targetQuaternion, true);
-
+          targetQuaternion.x = 0;
+          targetQuaternion.z = 0;
+          rb.current.setRotation(targetQuaternion, true);
+      }
       const movement = {
         x: 0,
         z: 0,
