@@ -4,42 +4,13 @@ Command: npx gltfjsx@6.2.16 src/Game/Assets/Models/Manequin/manequin.glb -k -K -
 */
 
 import React, { useEffect, useRef } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import { useGLTF, useAnimations, useKeyboardControls } from '@react-three/drei'
 import useFollowCam from '../../hooks/useFollowCamera'
 import { useFrame } from '@react-three/fiber'
-import useKeyboard from '../../hooks/useKeyboard'
+import useCharacterAnimation from './useCharacterAnimation'
 
 export function Player(props) {
   const group = useRef()
-  const { yaw } = useFollowCam(group, [0, 1.3, 2.5])
-  const lastAnimState = useRef('idle');
-  const keyboard = useKeyboard()
-
-  const AnimationKeyBinding = {
-    "KeyW": 'run',
-    "KeyS": 'back',
-    "KeyA": 'left',
-    "KeyD": 'right',
-    "idle": 'idle',
-  }
-
-  const InputActions = {
-    "KeyW": () => {
-      executeAnimation('run');
-    },
-    "KeyS": () => {
-      executeAnimation('back');
-    },
-    "KeyA": () => {
-      executeAnimation('left');
-    },
-    "KeyD": () => {
-      executeAnimation('right');
-    },
-    "idle": () => {
-      executeAnimation('idle');
-    }
-  }
   const { nodes, materials } = useGLTF('assets/models/manequin/manequin.glb')
   const { animations: idleAnimation } = useGLTF("assets/models/manequin/idle.glb");
   const { animations: runAnimation } = useGLTF("assets/models/manequin/run_forward.glb");
@@ -47,48 +18,21 @@ export function Player(props) {
   const { animations: sprintAnimation } = useGLTF("assets/models/manequin/sprint.glb");
   const { animations: leftAnimation } = useGLTF("assets/models/manequin/strafe_left.glb");
   const { animations: righttAnimation } = useGLTF("assets/models/manequin/strafe_right.glb");
-
+  
   idleAnimation[1].name = 'idle'
   runAnimation[1].name = 'run'
   backwardAnimation[1].name = 'back'
   sprintAnimation[1].name = 'sprint'
   leftAnimation[1].name = 'left'
   righttAnimation[1].name = 'right'
-
+  
   const { actions } = useAnimations([idleAnimation[1], runAnimation[1], backwardAnimation[1], sprintAnimation[1], leftAnimation[1], righttAnimation[1]], group)
-
+  const { animatePlayer } = useCharacterAnimation({group, actions})
+  
   useEffect(() => {
     if(actions['idle'])
       actions['idle'].reset().play();
   }, [actions])
-  
-
-  const executeAnimation = (newAnim) => {
-    console.log(lastAnimState.current)
-    console.log(AnimationKeyBinding[lastAnimState.current])
-  actions[AnimationKeyBinding[lastAnimState.current]].fadeOut(0.1);
-  actions[newAnim].reset().fadeIn(0.1).play();
-  }
-
-  const animatePlayer = () => {
-    const keys = Object.keys(InputActions);
-    let noAction = true;
-    keys.forEach(key => {
-      if(keyboard[key])
-        {
-          noAction = false;
-          if(lastAnimState.current === key) return;
-          InputActions[key]();
-          lastAnimState.current = key;
-        }
-    });
-
-    if(noAction){
-      if(lastAnimState.current === "idle") return;
-      InputActions['idle']();
-      lastAnimState.current = 'idle';
-    }
-  }
 
   useFrame(() => {
     animatePlayer();

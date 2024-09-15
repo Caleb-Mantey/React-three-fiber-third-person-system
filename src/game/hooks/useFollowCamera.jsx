@@ -41,6 +41,8 @@ export default function useFollowCam(ref, offset) {
     pitch.add(camera)
     camera.position.set(offset[0], 0, offset[2])
 
+    yaw.name = "CameraPivot"
+
     document.addEventListener('mousemove', onDocumentMouseMove)
     document.addEventListener('mousewheel', onDocumentMouseWheel, { passive: false })
     return () => {
