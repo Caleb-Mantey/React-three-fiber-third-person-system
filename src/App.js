@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Canvas } from "@react-three/fiber";
+import Scene from "./game/scene/Scene";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    const canvas = document.getElementById("threejs_canvas");
+    canvas.addEventListener("click", pointerLock);
+
+    return () => {
+      if (canvas) canvas.removeEventListener("click", pointerLock);
+    };
+  }, []);
+
+  const pointerLock = () => {
+    const canvas = document.getElementById("threejs_canvas");
+    canvas.requestPointerLock();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Canvas id="threejs_canvas">
+      <Scene />
+    </Canvas>
   );
 }
 
