@@ -65,19 +65,6 @@ function useCharacterAnimation({group, actions, rb}) {
       }
     }
 
-    // useFrame(() => {
-    //   euler.y = yaw.rotation.y
-    //   // quat.setFromEuler(euler)
-    //   // inputVelocity.applyQuaternion(quat)
-
-    //   const quaternion = quat(euler);
-    //   // const eulerRot = euler().setFromQuaternion(
-    //   //   quat(rb.current.rotation())
-    //   // );
-
-    //   if(rb) rb.current.setRotation(quaternion, true);
-    // })
-
   return { animatePlayer}
 }
 
