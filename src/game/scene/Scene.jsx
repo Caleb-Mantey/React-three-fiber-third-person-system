@@ -1,11 +1,9 @@
 import React, { Suspense } from "react";
 import { Player } from "../components/player/Player";
 import CameraSystem from "../components/CameraSystem";
-import { Environment, KeyboardControls, Plane, Sky } from "@react-three/drei";
-import { Barn } from "../components/player/Barn";
+import { Environment, KeyboardControls, Sky } from "@react-three/drei";
 import GameObjects from "../components/GameObjects";
 import PostProcessing from "../components/PostProcessing";
-// import { Model } from '../components/models/Militant'
 
 function Scene() {
 
@@ -21,7 +19,7 @@ function Scene() {
     <>
       <KeyboardControls map={keyboardMap}>
         <Suspense fallback={null}>
-          {/* <CameraSystem /> */}
+          <CameraSystem />
           <GameObjects/>
           <Environment preset="city" />
           <Sky

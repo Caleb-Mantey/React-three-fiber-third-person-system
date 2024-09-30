@@ -2,11 +2,13 @@ import React from "react";
 import { Plane } from "@react-three/drei";
 import { Physics, RigidBody } from "@react-three/rapier";
 import CharacterController from "./player/CharacterController";
+import { useControls } from "leva";
 
 function GameObjects() {
+  const { debug_physics } = useControls({debug_physics: false})
   return (
     <>
-      <Physics>
+      <Physics debug={debug_physics}>
         <CharacterController/>
 
         {/* <Barn position={[3,0,3]}/> */}

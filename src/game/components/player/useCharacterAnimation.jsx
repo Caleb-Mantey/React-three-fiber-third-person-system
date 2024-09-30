@@ -1,9 +1,7 @@
-import { useFrame } from '@react-three/fiber';
 import React, { useMemo, useRef } from 'react'
 import useFollowCam from '../../hooks/useFollowCamera';
 import { useKeyboardControls } from '@react-three/drei';
-import { Euler, Quaternion } from 'three';
-import { CapsuleCollider, RigidBody, quat, vec3, euler } from '@react-three/rapier'
+import { Euler } from 'three';
 
 
 const AnimationKeyBinding = {
